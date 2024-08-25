@@ -1,0 +1,79 @@
+{% load static %}
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Sign-in Page</title>
+	<link rel="stylesheet" href="{% static 'asset/registerstyles.css' %}">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<style>
+	body{
+		background-color: #01240a;
+		color: white;
+	}
+	
+  input{
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #1efc5a;
+	outline: none;
+  }
+
+ input::placeholder{
+	color: grey;
+ }
+</style>
+<body >
+	<div class="content">
+		<div class="flex-div">
+			<div class="name-content">
+				<h1 class="logo" style="color:#1efc5a; font-family: 'Dancing Script', cursive; font-size: 80px;">Connectify</h1>
+				<p>Place to share your Ideas...! Connect with friends and the world around you.</p>
+			</div>
+
+
+			
+		 <div class="form" style=" background: rgba(0,0,0,.5);
+		 box-sizing: border-box;
+		 box-shadow: 0 15px 25px rgba(0,0,0,.6);
+		 border-radius: 10px;">
+				<div class="titlef" style="color:white">Sign in</div>
+
+				<form action="" method="post">
+					{% csrf_token %}
+					<input type="text" placeholder="Username " name="uname" style="border: none;
+					border-bottom: 1px solid rgb(91, 176, 114);color:white;
+					outline: none;"/>
+
+					<input type="password" placeholder="Password" name="pswd"style="border: none;
+					border-bottom: 1px solid rgb(91, 176, 114);
+					outline: none; color:white;">
+
+					<button class="login" type="submit" style="background: rgb(170, 227, 178);
+					background: linear-gradient(0deg, rgb(170, 227, 178) 0%, rgb(170, 227, 178) 100%);
+					border: none; color: black; margin-top: 25px;">Sign In</button>
+
+					{% for i in messages %}
+					<p style="color:red; margin-top: 15px;">{{i}}</p>
+					{% endfor %}
+					
+				</form>
+				<a href="{% url 'auth:register' %}" class="create-account" style="color: #1efc5a;background-color: transparent;text-decoration: none;">
+					not registered? signup 
+				</a>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

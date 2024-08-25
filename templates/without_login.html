@@ -1,0 +1,536 @@
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connectify</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+  <!-- Facebook Favicon -->
+  <link rel="icon" href="/images/favicon.png" />
+
+  <!-- Fontawesome Icons  -->
+  <script src="https://kit.fontawesome.com/7433d3320f.js" crossorigin="anonymous"></script>
+
+  <!-- CSS File  -->
+  <link rel="stylesheet" href="{% static 'asset/styles.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+ </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+*{
+  color: white;
+}
+  body{
+    /* background: linear-gradient(to right, #dad299, #b0dab9); */
+    background-color: #2b2a34;
+  /* background: linear-gradient(-70deg,  #202020, #000000); */
+  }
+::-webkit-scrollbar{
+  display: none;
+}
+  h1 {
+    margin: 0 auto;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .image-preview-container {
+    width: 80%;
+    margin: 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border-radius: 20px;
+    display: grid;
+    place-items: center;
+  }
+span .st-label{
+  display:none;
+}
+  .image-preview-container img {
+    width: 90%;
+    display: none;
+    margin-bottom: 30px;
+  }
+
+  .image-preview-container input {
+    display: none;
+  }
+
+  .image-preview-container label {
+    display: block;
+    padding: 20px;
+    width: fit-content;
+    height: 45px;
+    text-align: center;
+    background: #8338ec;
+    color: #fff;
+    font-size: 15px;
+    text-transform: Uppercase;
+    font-weight: 400;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form,
+  .form-group {
+
+    display: grid;
+    place-items: center;
+  }
+
+  .form-control:focus {
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  #caption {
+    width: 80%;
+    border: 0;
+    outline: 0;
+    border-bottom: 2px solid blue;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+  * {
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif
+  }
+
+  .container {
+    /* height: fit-content; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee;
+    padding: 1rem 0;
+  }
+
+  .card {
+    margin-top: 2rem;
+    width: 350px;
+    height: fit-content;
+    background-color: #fff;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden
+  }
+
+  .card .info {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e1dede;
+    background-color: #e5e5e5
+  }
+
+  .card .info button,
+  #updatebtn {
+    height: 30px;
+    width: 80px;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    background-color: #000;
+    cursor: pointer;
+    text-transform: uppercase
+  }
+
+  .card .forms {
+    padding: 15px
+  }
+
+  .card .inputs {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px
+  }
+
+  .card .inputs span {
+    font-size: 10px;
+    margin: 5px 0;
+  }
+
+  .card .inputs input {
+    height: 40px;
+    padding: 0px 10px;
+    font-size: 17px;
+    box-shadow: none;
+    outline: none;
+    width: 90%;
+    display: grid;
+    place-items: center;
+  }
+
+  .card .inputs input[type="text"][readonly] {
+    border: 2px solid rgba(0, 0, 0, 0)
+  }
+
+  input[type='file'] {
+    display: none;
+  }
+
+  .form-input label {
+    display: block;
+    width: 45%;
+    height: 45px;
+    margin-left: 25%;
+    line-height: 50px;
+    text-align: center;
+    background: #1172c2;
+
+    color: #fff;
+    font-size: 15px;
+    font-family: "Open Sans", sans-serif;
+    text-transform: Uppercase;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .form-input img {
+    width: 100%;
+    display: none;
+
+    margin-bottom: 30px;
+  }
+
+  #updatebtn {
+    display: none;
+  }
+
+  .textarea:focus {
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+  }
+
+  .caption {
+    border: none;
+    border-bottom: 2px solid black;
+  }
+
+  .preload {
+    position: absolute;
+    content: '';
+    width: 100vw;
+    height: 100%;
+    display: none;
+    background-color: transparent;
+    z-index: 100;
+  }
+  .custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px auto;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+
+
+/* 2 */
+.btn-2 {
+  background: rgb(96,9,240);
+  background: linear-gradient(0deg, rgba(96,9,240,1) 0%, rgba(129,5,240,1) 100%);
+  border: none;
+  
+}
+.btn-2:before {
+  height: 0%;
+  width: 2px;
+}
+
+.storycard{
+  width:19%;
+  background-color:white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+@media only screen and (max-width:400px) {
+  .storycard{
+  width:60px;
+}
+.story-post{
+  font-size: 10px;
+}
+}
+
+</style>
+
+<body>
+
+  <!-- Navigation Section  --> 
+  <nav style="background-color: #35353a">
+  <!-- <nav style=" background: linear-gradient(to right, #780206, #061161);"> -->
+    <!-- Left Section  -->
+    <div class="nav-left">
+        <a href="{% url 'home:home' %}" style="text-decoration: none;"><span class="logo"
+          style="color: white;font-size: 25px;font-weight: bold;letter-spacing: 2px;filter: progid:DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=1);text-shadow: 0 0 4px yellow;">Connectify</span></a>
+    
+    </div>
+    <!-- Right Section  -->
+    <div class="nav-right">
+      <!-- Searchbox  -->
+      <a href="{% url 'auth:login' %}"style="text-decoration:none;background: linear-gradient(327.43deg, #32383E -77.68%, #17191C 87.35%);
+      border: none;
+      box-shadow: -4px -2px 16px rgba(195,200,205,0), 4px 4px 18px rgba(0, 0, 0, 0.5);margin-right:10px;width:40px ;height:40px;">
+        <div class="search-box"
+          style="width:40px ;height:40px;border-radius: 50%; display: grid;place-items: center;padding: 0;background: linear-gradient(327.43deg, #32383E -77.68%, #17191C 87.35%);
+          border: none;
+          box-shadow: -4px -2px 16px rgba(210, 215, 221, 0), 4px 4px 18px rgba(24, 23, 23, 0.5);">
+         <i class="fa fa-search"></i>
+        </div>
+
+      </a>
+      <a href="{% url 'auth:login' %}">
+        <div class="addpost mx-2"
+      style="background: linear-gradient(327.43deg, #32383E -77.68%, #17191C 87.35%);
+      border: none;
+      box-shadow: -4px -2px 16px rgba(195,200,205,0), 4px 4px 18px rgba(0, 0, 0, 0.5);"
+      >
+
+        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#addpost" data-whatever="@mdo" style="background: linear-gradient(327.43deg, #32383E -77.68%, #17191C 87.35%);
+        border: none;
+        box-shadow: -4px -2px 16px rgba(195,200,205,0), 4px 4px 18px rgba(0, 0, 0, 0.5);"><i
+            class="fa-solid fa-plus"></i></button>
+
+      </div>
+    </a>
+      <div class="nav-user-icon online" onclick="settingsMenuToggle()" style="margin-left: 10px;">
+        <img src="/media/profiles/img.jpg" style="border:3px solid #45ffbc;background-color: white;"/>
+      </div>
+
+
+    </div>
+
+    <!-- Settings Menu Section  -->
+    <div class="settings-menu" style="background-color: rgba(255, 255, 255, 0.08);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+ 
+    -webkit-box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 20px rgba(219, 214, 214, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.06);width:max-content;" >
+
+      <!-- Dark Button Toggle  -->
+
+      <div class="settings-menu-inner" >
+        
+        <div class="settings-links" style="width:fit-content">
+
+            <a href="{% url 'auth:login' %}">
+                <div class="user-profile">
+                    <img src="/media/profiles/img.jpg"
+                        style="height: 50px;width:50px;border:3px solid #45ffbc;" />
+                    <div>
+                        <p style="color: white;">user</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <hr />
+
+        <hr />
+
+        <div class="settings-links"style="width:fit-content">
+
+            <a href="{% url 'auth:login' %}">
+                <button type="submit" class="btn btn-disable" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" style="color: white;">
+                    Sign in
+                </button>
+            </a>
+
+        </div>
+
+
+        <div class="settings-links"style="width:fit-content">
+
+            <a href="{% url 'auth:register' %}">
+                <button type="submit" class="btn btn-disable" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" style="color: white;">
+                    Sign up
+                </button>
+            </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+  <!-- Main Content Section  -->
+  <div class="container" style="background-color:transparent;">
+
+    <!-- Left Sidebar  -->
+    <div>
+  
+  
+    </div>
+    <!-- Middle Content  -->
+    <!-- Story Section  -->
+  
+    <div class="main-content" style="height: 100vh;width:100vw;overflow-y: scroll;">
+  
+  
+  
+     
+      <p class="fw-bold">Most reacted Posts</p>
+      <div id="stories-wrapper" style="display:flex;align-items: center;justify-content: flex-start;">
+        {% for i in story %}
+  
+        <div class="storycard" style="overflow:hidden;display:grid;place-items:center;margin:auto;height:130px;border-radius:8px;background:#897492;color:black;
+         box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
+          inset 4px 4px 10px rgba(0, 0, 0, 0.5),
+          inset -4px -4px 10px rgba(67, 67, 67, 0.3),
+          4px 4px 10px rgba(0, 0, 0, 0.3);border: 1px solid rgb(36, 33, 33);">
+          <a href="{% url 'auth:login'  %}"
+            style="text-decoration: none;font-size: 0.7rem; display:inline-flex;justify-content: space-between;align-items: center;color:black;">
+  
+            <img src="{{i.post_profile.profile_pic.url}}"
+              style="height: 25px;width:25px;border:3px solid purple;border-radius: 50%;" />
+            <span style="color:yellow;"> {{i.user}}</span>
+  
+          </a>
+          <a href="{% url 'auth:login'  %}"
+            style="text-decoration:none;text-align:center;color:black ;display:flex;align-items: space-between;justify-content: space-between;flex-direction: column;height: 70%;">
+            <div class="story-post mb-2 fw-bold" style="font-size: 0.9rem;color:white;"> {{i.post}}</div>
+            <span style='font-size:0.9rem;color:black;'>
+              <i class="fa-solid fa-hands-clapping " style='color:rgb(255, 209, 2);'></i> {{i.likes}}likes
+            </span>
+          </a>
+        </div>
+  
+        {% endfor %}
+  
+      </div>
+  
+      <!-- Uploaded Posts Section  -->
+      <!-- Post 1  -->
+      {% for i in posts reversed %}
+      <div class="post-container" id="{{i.id}}" style=" background:#393846;
+     
+     box-shadow: 0 15px 100px #1e1d25;">
+        <div class="post-row">
+  
+  
+          <div class="user-profile">
+            <a href="{% url 'auth:login'  %}">
+  
+              <img src="{{i.post_profile.profile_pic.url}}"
+                style="height: 50px;width:50px;border:3px solid rgb(105, 255, 163);background-color: white;" />
+            </a>
+  
+            <div>
+              <p class="fw-bold" style="color:rgb(227, 252, 1)">{{i.user.username}}</p>
+              <span style="font-size: 14px;color:#8c8aa7;">{{i.upload_date}}</span>
+            </div>
+          </div>
+          <a class="trash" href="{% url 'home:dltepost' i.id %}">
+            {% if i.user.username == userprofile.username %}
+            <i class="fa fa-trash" onclick="dletepost('{{i.id}}')"></i>
+            {% endif %}
+          </a>
+  
+        </div>
+        <p class="post-text fw-normal" style="font-weight: bold;letter-spacing:1px;color: rgb(224, 224, 224);">
+          {{i.caption}}
+        </p>
+        <hr style="color: rgb(230, 230, 230);">
+        <div class="post-row" style="place-items: center;">
+  
+          <div class="post-img p-1 fw-bolder"
+            style="width:70% ;margin-left: 8%;min-height:80px;font-size:18px;color:rgb(255, 255, 255);letter-spacing: 1px;">
+            {{i.post}}</div>
+  
+        </div>
+        <div class="post-row" style="display: flex;align-items: center;justify-content: flex-start;">
+          <div class="activity-icons "
+            style="display: flex;align-items: center;justify-content:space-between;color: #45ffbc;">
+  
+  
+            {% if user in i.likes.all %}
+            <a href="{% url 'auth:login' %}" style="background-color:transparent;border: 0;outline: 0;" class="likebtn mx-2" type="submit">
+            
+  
+              <i class="fa-solid fa-hands-clapping " style='font-size:28px;color:rgb(255, 208, 0);'
+                 id="{{i.id}}"></i>
+  
+            </a>
+  
+            {% else %}
+  
+            <a href="{% url 'auth:login' %}"  style="background-color:transparent ;border: 0;outline: 0;" class="likebtn mx-2" type="submit">
+              
+  
+              <i class="fa-solid fa-hands-clapping " style='font-size:28px;color:rgb(211, 211, 211);'
+                 id="{{i.id}}"></i>
+            </a>
+  
+            {% endif %}
+  
+            {% comment %}
+            </a> {% endcomment %}
+  
+            <span class="fw-bold" id="likecount{{i.id}}" style="color: #45ffbc">{{i.likes.count}}</span>
+            <a href="{% url 'auth:login'  %}" style="text-decoration:none ;margin-left: 20px;">
+              <div class="comment fw-bold" style="color:  #45ffbc;">
+                <img
+                  src="https://media.istockphoto.com/id/1310060658/vector/thinking-emoticon-question-face-emoji-with-eyeglasses-vector-illustration.jpg?s=612x612&w=0&k=20&c=pNujEuBbCFfBGUPFNznD6gMVAJ_uGeFYMmjpPuby9Eg="
+                  style="border-radius: 50%;height: 45px;width: 45px;">
+  
+                Discuss
+  
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      You're all caught up...
+  
+  
+      <!-- Right Sidebar  -->
+      <div></div>
+    </div>
+  <script>
+    function auto_grow(element) {
+      element.style.height = "5px";
+      element.style.height = (element.scrollHeight) + "px";
+    }
+  </script>
+  <script src="{% static 'asset/script.js' %}"></script>
+
+</body>
+
+</html>
