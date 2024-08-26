@@ -62,3 +62,27 @@ def home(request):
         return render(request,'without_login.html',context) 
 
        
+
+@login_required(login_url='auth/')
+def profile(request,user):
+    try:
+        userdata=userprofile.objects.get(username=user)
+        comment=comments.objects.all()
+        current=request.user
+        currentuser=userprofile.objects.get(username=current)
+        
+        posts=post_table.objects.filter(user__username=user).all()
+        if currentuser.following.filter(username=userdata.username).exists():
+            isfollowing=True
+        else:
+            isfollowing=False    
+        context={
+            'profile_data':userdata,
+            'userprofile':currentuser,
+            'posts':posts,
+            'comments':comment,
+            'isfollowing':isfollowing
+        }
+        return render(request,'profile.html',context)   
+    except:
+        return render (request,'profilewithoutlogin.html')
