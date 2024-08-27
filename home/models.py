@@ -3,7 +3,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-    
+
+
 class userprofile(models.Model):
     username=models.CharField(max_length=200)
     firstname=models.CharField(blank=True,max_length=200)
@@ -27,3 +28,4 @@ class comments(models.Model):
     user=models.ForeignKey(userprofile,on_delete=models.CASCADE,related_name='user')
     comment=models.CharField(max_length=300,blank=False)
     date=models.DateTimeField(auto_now_add=True)
+

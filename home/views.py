@@ -86,3 +86,73 @@ def profile(request,user):
         return render(request,'profile.html',context)   
     except:
         return render (request,'profilewithoutlogin.html')
+
+@login_required(login_url='auth/')
+def addpost(request):
+    post=post_table.objects.all()
+    current=request.user
+    currentuser=userprofile.objects.get(username=current)
+    context={
+        'posts':post,
+        'userprofile':currentuser,
+        }
+    if request.method=='POST':
+        post=request.POST['post']    
+        caption=request.POST['caption']    
+        user=request.user
+        post_profile=userprofile.objects.get(username=user)
+        
+        upload=post_table.objects.create(user=user,post_profile=post_profile,caption=caption,post=post)
+        if upload:
+
+            upload.save()
+            data={'post':post,'caption':caption,'user':user.username}
+            return JsonResponse(data, safe=False)
+
+        else:
+            return JsonResponse({'data':'Something went wrong!!'})
+        # return redirect('/')    
+        
+
+
+@login_required(login_url='auth/')
+def like(request,id):
+    if request.method=='POST':
+        
+        currentuser=request.user.id
+        postid=id
+        postinstance=post_table.objects.get(id=postid)
+        
+        if  postinstance.likes.filter(id=currentuser).exists():
+        
+            postinstance.likes.remove(request.user)
+            
+            postinstance.save()
+            print('disliked')
+            return JsonResponse({'data':'dsliked'},safe=False)
+        else:
+            postinstance.likes.add(request.user)
+            postinstance.save()
+            print('liked')            
+            return JsonResponse({'data':'liked'},safe=False)
+
+
+@login_required(login_url='auth/')
+def dltepost(request,id):
+    postinstance=post_table.objects.get(id=id)
+    postinstance.delete()
+    
+    return redirect('/')  
+
+
+@login_required(login_url='auth/')
+def pdltepost(request,id,user):
+    postinstance=post_table.objects.get(id=id)
+    postinstance.delete()
+    url="/profile/"+str(user)+"/"
+   
+    return redirect(url)
+   
+
+   
+    
