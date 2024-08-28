@@ -4,18 +4,19 @@
 <!-- Profile Section  -->
 <div class="profile-container" >
 
-  <div class="profile-details" style="justify-content: center;align-items:center;width: 100%;word-wrap: break-word;background-color: rgba(255, 255, 255, 0.06);
+  <div class="profile-details" style="justify-content: center;align-items:center;width: 100%;
+  word-wrap: break-word;background-color: rgba(255, 255, 255, 0.06);
 	-webkit-backdrop-filter: blur(15px);
-	backdrop-filter: blur(15px);
-	padding: 50px 25px;
+	backdrop-filter: blur(15px);padding: 50px 25px;
 	-webkit-box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
 	box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
 	border: 1.5px solid rgba(255, 255, 255, 0.06);">
+
     <div class="pd-left" style='width:100%;justify-content:space-around;'>
       <div class="pd-row" style="justify-content:start;align-items:flex-start;width:100%;">
-        <img src="{{ profile_data.profile_pic.url }}" style="border:3px solid orange;" class="pd-image" />
+        <img src="{{ profile_data.profile_pic.url }}" style="border:3px solid #1efc5a;" class="pd-image" />
         <div style="flex-direction:column ;text-align:start;">
-          <h3><b style="color:#45ffbc">{{profile_data.username}}</b></h3>
+          <h3><b style="color:#1efc5a">{{profile_data.username}}</b></h3>
           <h5><b>{{profile_data.firstname}} {{profile_data.lastname}}</b></h5>
           <p class="profile-desc text-start">
             {{profile_data.bio}}
@@ -39,24 +40,23 @@
     {% if userprofile.username == profile_data.username %}
     <div></div>
     {% else %}
+    
     <div class="r">
 
-
-
-      <button class="custom-btn btn-2" id="{{profile_data.username}}"
-        style="display:grid;place-items:center;border: none;outline: none;" onclick="followbtn(this)">
+      <button class="custom-btn" id="{{profile_data.username}}"
+        style="display:grid;place-items:center;border: none;outline: none;background-color: #1efc5a;" onclick="followbtn(this)">
         {% csrf_token %}
-        <div id="isfollowing" style="display: flex;align-items: center;justify-content: space-between;padding:0;">
+        <div id="isfollowing" style="display: flex;align-items: center;justify-content: space-between;padding:0; background-color: #1efc5a;">
           {% if isfollowing %}
 
-          <i class="fas fa-times mx-2"></i>
-          <div id="followtext">Unfollow</div>
+          <i class="fas fa-times mx-2" style="color: black;"></i>
+          <div id="followtext" style="color: black;">Unfollow</div>
 
 
           {% else %}
 
-          <i class="fas fa-plus mx-2"></i>
-          <div id="followtext">Follow</div>
+          <i class="fas fa-plus mx-2" style="color: black;" ></i>
+          <div id="followtext" style="color: black;">Follow</div>
 
 
           {% endif %}
@@ -83,9 +83,9 @@
       <!-- Post 1  -->
       {% if posts %}
       {% for i in posts reversed %}
-      <div class="post-container" id="{{i.id}}" style=" background:#393846;
-   
-      box-shadow: 0 15px 100px #1e1d25;">
+      <div class="post-container" id="{{i.id}}" style=" background:rgba(0,0,0,.75);
+      box-shadow: inset 0 4px 10px rgba(91, 176, 114, 0.5), 0 15px 100px #1efc5911; 
+      border: 3px solid rgba(91, 176, 114, 0.5);">
          <div class="post-row">
    
    
@@ -93,11 +93,11 @@
              <a href="{% url 'home:profile' i.user.username %}">
    
                <img src="{{i.post_profile.profile_pic.url}}"
-                 style="height: 50px;width:50px;border:3px solid #45ffbc;background-color: white;" />
+                 style="height: 50px;width:50px;border:3px solid #1efc5a;background-color: white;" />
              </a>
    
              <div>
-               <p class="fw-bold" style="color:rgb(227, 252, 1)">{{i.user.username}}</p>
+               <p class="fw-bold" style="color:#1efc5a">{{i.user.username}}</p>
                <span style="font-size: 14px;color:#8c8aa7;">{{i.upload_date}}</span>
              </div>
            </div>
@@ -121,7 +121,7 @@
          </div>
          <div class="post-row" style="display: flex;align-items: center;justify-content: flex-start;">
            <div class="activity-icons "
-             style="display: flex;align-items: center;justify-content:space-between;color: #45ffbc;">
+             style="display: flex;align-items: center;justify-content:space-between;color: #1efc5a;">
    
    
              {% if user in i.likes.all %}
@@ -147,9 +147,9 @@
              {% comment %}
              </a> {% endcomment %}
    
-             <span class="fw-bold" id="likecount{{i.id}}" style="color: #45ffbc">{{i.likes.count}}</span>
+             <span class="fw-bold" id="likecount{{i.id}}" style="color: #1efc5a">{{i.likes.count}}</span>
              <a href="{% url 'home:comment' id=i.id %}" style="text-decoration:none ;margin-left: 20px;">
-               <div class="comment fw-bold" style="color:  #45ffbc;">
+               <div class="comment fw-bold" style="color:  #1efc5a;">
                  <img
                    src="https://media.istockphoto.com/id/1310060658/vector/thinking-emoticon-question-face-emoji-with-eyeglasses-vector-illustration.jpg?s=612x612&w=0&k=20&c=pNujEuBbCFfBGUPFNznD6gMVAJ_uGeFYMmjpPuby9Eg="
                    style="border-radius: 50%;height: 45px;width: 45px;">
@@ -160,97 +160,17 @@
              </a>
            </div>
          </div>
-       </div>
+      </div>
       {% endfor %}
 
-      <!-- Post 1  -->
-      <!-- {% for i in posts reversed %}
-      <div class="post-container" id="{{i.id}}">
-        <div class="post-row">
-
-
-          <div class="user-profile">
-            <a href="{% url 'home:profile' i.user.username %}">
-
-              <img src="{{i.post_profile.profile_pic.url}}" style="height: 50px;width:50px;border:3px solid purple" />
-            </a>
-
-            <div>
-              <p class="fw-bold">{{i.user.username}}</p>
-              <span style="font-size: 14px;">{{i.upload_date}}</span>
-            </div>
-          </div>
-          <a class="trash" href="{% url 'home:pdltepost' i.id  i.user.username %}">
-            {% if i.user.username == userprofile.username %}
-            <i class="fa fa-trash" onclick="dletepost('{{i.id}}')"></i>
-            {% endif %}
-          </a>
-
-        </div>
-        <p class="post-text fw-normal" style="font-weight: bold;letter-spacing:1px;">
-          {{i.caption}}
-        </p>
-        <hr>
-        <div class="post-row" style="place-items: center;">
-
-          <div class="post-img p-1 fw-bolder"
-            style="width:70% ;margin-left: 8%;min-height:80px;font-size:18px;color:black">{{i.post}}</div>
-
-        </div>
-        <div class="post-row" style="display: flex;align-items: center;justify-content: flex-start;">
-          <div class="activity-icons "
-            style="display: flex;align-items: center;justify-content:space-between;color: purple;">
-
-            {% if user in i.likes.all %}
-            <button style="background-color:transparent;border: 0;outline: 0;" class="likebtn mx-2" type="submit">
-              {% csrf_token %}
-
-              <i class="fa-solid fa-hands-clapping " style='font-size:28px;color:brown;' onclick='likepost(this)'
-                id="{{i.id}}"></i>
-
-            </button>
-
-            {% else %}
-
-            <button style="background-color:transparent ;border: 0;outline: 0;" class="likebtn mx-2" type="submit">
-              {% csrf_token %}
-
-              <i class="fa-solid fa-hands-clapping " style='font-size:28px;color:grey;' onclick='likepost(this)'
-                id="{{i.id}}"></i>
-            </button>
-
-            {% endif %}
-
-
-
-            <span class="fw-bold" id="likecount{{i.id}}">{{i.likes.count}}</span>
-            <a href="{% url 'home:comment' id=i.id %}" style="text-decoration:none ;margin-left: 20px;">
-              <div class="comment fw-bold">
-                <img
-                  src="https://media.istockphoto.com/id/1310060658/vector/thinking-emoticon-question-face-emoji-with-eyeglasses-vector-illustration.jpg?s=612x612&w=0&k=20&c=pNujEuBbCFfBGUPFNznD6gMVAJ_uGeFYMmjpPuby9Eg="
-                  style="border-radius: 50%;height: 45px;width: 45px;">
-
-                Discuss
-
-              </div>
-            </a>
-          </div>
-
-        </div>
-      </div>
-      {% endfor %} -->
-
       {% else %}
-      <p>no posts</p>
+      <p style="font-size: large;">No posts</p>
 
       {% endif %}
 
-
-
-      <!-- Load More  -->
-
     </div>
 
+    
     <!-- Right Sidebar  -->
     <div></div>
   </div>
@@ -346,6 +266,7 @@
     </div>
   </div>
 </div>
+
 <script>
 
   function followbtn(e) {
@@ -370,8 +291,8 @@
         let isfollowing = document.getElementById("isfollowing");
 
 
-        const followelement = `<i class="fas fa-plus mx-2"></i><div id="followtext">Follow</div>`;
-        const unfollowelement = `<i class="fas fa-times mx-2"></i><div id="followtext">Unfollow</div>`;
+        const followelement = `<i class="fas fa-plus mx-2" style="color: black;"></i><div id="followtext" style="color: black;">Follow</div>`;
+        const unfollowelement = `<i class="fas fa-times mx-2" style="color: black;"></i><div id="followtext" style="color: black;">Unfollow</div>`;
 
         if (`${data}` == 'following') {
 

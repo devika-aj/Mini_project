@@ -296,7 +296,8 @@ span .st-label{
     <!-- Left Section  -->
     <div class="nav-left">
         <a href="{% url 'home:home' %}" style="text-decoration: none;">
-          <span class="logo" style="color:#1efc5a; font-family: 'Dancing Script', cursive !important; font-size: 40px; font-weight: bold;letter-spacing: 2px;">Connectify</span>    
+          <span class="logo" style="color:#1efc5a; font-family: 'Dancing Script', cursive !important; font-size: 40px; 
+          font-weight: bold;letter-spacing: 2px;">Connectify</span>    
     </div>
     <!-- Right Section  -->
     <div class="nav-right">
@@ -406,7 +407,7 @@ span .st-label{
         {% for i in story %}
   
         <div class="storycard" style="overflow:hidden;display:grid;place-items:center;margin:auto;height:150px;border-radius:8px;background:rgba(0, 0, 0, 0.5);color:black;
-         box-shadow: -4px -4px 10px rgba(0, 0, 0, 0.5),
+         box-shadow: -4px -4px 10px rgba(91, 176, 114, 0.5),
           inset 4px 4px 10px rgba(0, 0, 0, 0.5),
           inset -4px -4px 10px rgba(0, 0, 0, 0.5),
           4px 4px 10px rgba(0, 0, 0, 0.5);border: 1px solid rgba(0, 0, 0, 0.5);">
@@ -434,12 +435,11 @@ span .st-label{
       <!-- Uploaded Posts Section  -->
       <!-- Post 1  -->
       {% for i in posts reversed %}
-      <div class="post-container" id="{{i.id}}" style=" background:rgba(0,0,0,.5);
-     
-     box-shadow: 0 15px 100px #1efc5911;">
-        <div class="post-row">
-  
-  
+      <div class="post-container" id="{{i.id}}" style=" background:rgba(0,0,0,.75);
+      box-shadow: inset 0 4px 10px rgba(91, 176, 114, 0.5), 0 15px 100px #1efc5911; 
+      border: 3px solid rgba(91, 176, 114, 0.5);">
+
+        <div class="post-row"> 
           <div class="user-profile">
             <a href="{% url 'auth:login'  %}">
   

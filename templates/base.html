@@ -349,7 +349,7 @@ span .st-label{
           <div>
             <p style="color: white;">{{user.username}}</p>
 
-            <a href="{% url 'home:profile' user.username %}" style="color: orange;">See your profile</a>
+            <a href="{% url 'home:profile' user.username %}" style="color: yellow;">See your profile</a>
 
           </div>
         </div>
@@ -361,7 +361,7 @@ span .st-label{
           <a href="{% url 'home:edit'  %}" style="color: white;">
             <button type="button" class="btn btn-disabled" style="color: white;">
               <img src="{% static 'images/setting.png' %}" class="settings-icon" />
-              edit Profile
+              Edit Profile
             </button>
           </a>
         </div>
@@ -372,7 +372,7 @@ span .st-label{
 
           <button type="submit" class="btn btn-disable" data-bs-toggle="modal" data-bs-target="#staticBackdrop"style="color: white;">
             <img src="{% static 'images/logout.png' %}" class="settings-icon" />
-            logout
+            Logout
           </button>
 
 
@@ -455,9 +455,11 @@ span .st-label{
         <div class="modal-footer">
           <form action="{% url 'auth:logout' %}" method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-warning">Sign out</button>
+            <button type="submit" class="btn btn-warning" 
+            style="color: black; background-color: rgb(91, 176, 114);border-color: rgb(91, 176, 114);border-radius: 10px;">Sign out</button>
           </form>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          style="color: black; background-color: rgb(91, 176, 114);border-color: rgb(91, 176, 114);border-radius: 10px;"">Cancel</button>
         </div>
       </div>
     </div>
