@@ -14,14 +14,11 @@
 
   <div class="main-content" style="height: 100vh;width:100vw;overflow-y: scroll;">
 
-
-
-   
-    <p class="fw-bold">Most reacted Posts</p>
+    <p class="fw-bold" style="font-size:x-large;"">Most reacted Posts</p>
     <div id="stories-wrapper" style="display:flex;align-items: center;justify-content: flex-start;">
       {% for i in story %}
 
-      <div class="storycard" style="overflow:hidden;display:grid;place-items:center;margin:auto;height:130px;border-radius:8px;background:#897492;color:black;
+      <div class="storycard" style="overflow:hidden;display:grid;place-items:center;margin:auto;height:150px;border-radius:8px;background:#897492;color:black;
        box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
         inset 4px 4px 10px rgba(0, 0, 0, 0.5),
         inset -4px -4px 10px rgba(67, 67, 67, 0.3),
@@ -31,7 +28,7 @@
 
           <img src="{{i.post_profile.profile_pic.url}}"
             style="height: 25px;width:25px;border:3px solid purple;border-radius: 50%;" />
-          <span style="color:yellow;"> {{i.user}}</span>
+          <span style="color:#1efc5a;"> {{i.user}}</span>
 
         </a>
         <a href="{% url 'home:comment' i.id %}"
@@ -51,7 +48,7 @@
     <!-- Post 1  -->
     {% for i in posts reversed %}
     <div class="post-container" id="{{i.id}}" style=" background:#393846;
-   
+
    box-shadow: 0 15px 100px #1e1d25;">
       <div class="post-row">
 
@@ -60,11 +57,11 @@
           <a href="{% url 'home:profile' i.user.username %}">
 
             <img src="{{i.post_profile.profile_pic.url}}"
-              style="height: 50px;width:50px;border:3px solid rgb(105, 255, 163);background-color: white;" />
+              style="height: 50px;width:50px;border:3px solid #1efc5a;background-color: white;" />
           </a>
 
           <div>
-            <p class="fw-bold" style="color:rgb(227, 252, 1)">{{i.user.username}}</p>
+            <p class="fw-bold" style="color:#1efc5a">{{i.user.username}}</p>
             <span style="font-size: 14px;color:#8c8aa7;">{{i.upload_date}}</span>
           </div>
         </div>
@@ -114,9 +111,9 @@
           {% comment %}
           </a> {% endcomment %}
 
-          <span class="fw-bold" id="likecount{{i.id}}" style="color: #45ffbc">{{i.likes.count}}</span>
+          <span class="fw-bold" id="likecount{{i.id}}" style="color: #1efc5a">{{i.likes.count}}</span>
           <a href="{% url 'home:comment' id=i.id %}" style="text-decoration:none ;margin-left: 20px;">
-            <div class="comment fw-bold" style="color:  #45ffbc;">
+            <div class="comment fw-bold" style="color:  #1efc5a;">
               <img
                 src="https://media.istockphoto.com/id/1310060658/vector/thinking-emoticon-question-face-emoji-with-eyeglasses-vector-illustration.jpg?s=612x612&w=0&k=20&c=pNujEuBbCFfBGUPFNznD6gMVAJ_uGeFYMmjpPuby9Eg="
                 style="border-radius: 50%;height: 45px;width: 45px;">
@@ -129,7 +126,7 @@
       </div>
     </div>
     {% endfor %}
-    You're all caught up...
+    <p style="font-size: large;">You're all caught up...</p>
 
 
     <!-- Right Sidebar  -->

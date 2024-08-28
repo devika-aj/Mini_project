@@ -12,7 +12,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
   <!-- Facebook Favicon -->
   <link rel="icon" href="/images/favicon.png" />
@@ -32,7 +32,7 @@
 }
   body{
     /* background: linear-gradient(to right, #dad299, #b0dab9); */
-    background-color: #2b2a34;
+    background-color: #01240a;
   /* background: linear-gradient(-70deg,  #202020, #000000); */
   }
 ::-webkit-scrollbar{
@@ -288,13 +288,15 @@ span .st-label{
 <body>
 
   <!-- Navigation Section  --> 
-  <nav style="background-color: #35353a">
+  <nav style="background-color: rgb(0, 0, 0);box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
+  inset 4px 4px 10px rgba(0, 0, 0, 0.5),
+  inset -4px -4px 10px rgba(67, 67, 67, 0.3),
+  4px 4px 10px rgba(0, 0, 0, 0.3);border: 1px solid rgb(36, 33, 33);">
   <!-- <nav style=" background: linear-gradient(to right, #780206, #061161);"> -->
     <!-- Left Section  -->
     <div class="nav-left">
-        <a href="{% url 'home:home' %}" style="text-decoration: none;"><span class="logo"
-          style="color: white;font-size: 25px;font-weight: bold;letter-spacing: 2px;filter: progid:DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=1);text-shadow: 0 0 4px yellow;">Connectify</span></a>
-    
+        <a href="{% url 'home:home' %}" style="text-decoration: none;">
+          <span class="logo" style="color:#1efc5a; font-family: 'Dancing Script', cursive !important; font-size: 40px; font-weight: bold;letter-spacing: 2px;">Connectify</span>    
     </div>
     <!-- Right Section  -->
     <div class="nav-right">
@@ -312,20 +314,18 @@ span .st-label{
       </a>
       <a href="{% url 'auth:login' %}">
         <div class="addpost mx-2"
-      style="background: linear-gradient(327.43deg, #32383E -77.68%, #17191C 87.35%);
-      border: none;
-      box-shadow: -4px -2px 16px rgba(195,200,205,0), 4px 4px 18px rgba(0, 0, 0, 0.5);"
-      >
+            style="background: linear-gradient(327.43deg, #32383E -77.68%, #17191C 87.35%); border: none;
+                box-shadow: -4px -2px 16px rgba(195,200,205,0), 4px 4px 18px rgba(0, 0, 0, 0.5);">
 
-        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#addpost" data-whatever="@mdo" style="background: linear-gradient(327.43deg, #32383E -77.68%, #17191C 87.35%);
-        border: none;
-        box-shadow: -4px -2px 16px rgba(195,200,205,0), 4px 4px 18px rgba(0, 0, 0, 0.5);"><i
-            class="fa-solid fa-plus"></i></button>
+        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#addpost" data-whatever="@mdo" 
+               style="background: linear-gradient(327.43deg, #32383E -77.68%, #17191C 87.35%);border: none;
+                     box-shadow: -4px -2px 16px rgba(195,200,205,0), 4px 4px 18px rgba(0, 0, 0, 0.5);">
+                     <i class="fa-solid fa-plus"></i></button>
 
       </div>
     </a>
-      <div class="nav-user-icon online" onclick="settingsMenuToggle()" style="margin-left: 10px;">
-        <img src="/media/profiles/img.jpg" style="border:3px solid #45ffbc;background-color: white;"/>
+      <div class="nav-user-icon online" onclick="settingsMenuToggle()" style="margin-left: 40px;">
+        <img src="/media/profiles/img.jpg" style="border:3px solid #1efc5a;background-color: white;"/>
       </div>
 
 
@@ -335,10 +335,9 @@ span .st-label{
     <div class="settings-menu" style="background-color: rgba(255, 255, 255, 0.08);
     -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
- 
     -webkit-box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
     box-shadow: 0 2px 20px rgba(219, 214, 214, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.06);width:max-content;" >
+    border: 1px solid rgba(255, 255, 255, 0.06);width: 350px;" >
 
       <!-- Dark Button Toggle  -->
 
@@ -349,9 +348,9 @@ span .st-label{
             <a href="{% url 'auth:login' %}">
                 <div class="user-profile">
                     <img src="/media/profiles/img.jpg"
-                        style="height: 50px;width:50px;border:3px solid #45ffbc;" />
+                        style="height: 50px;width:50px;border:3px solid #1efc5a;" />
                     <div>
-                        <p style="color: white;">user</p>
+                        <p style="color: white;">User</p>
                     </div>
                 </div>
             </a>
@@ -400,33 +399,30 @@ span .st-label{
     <!-- Middle Content  -->
     <!-- Story Section  -->
   
-    <div class="main-content" style="height: 100vh;width:100vw;overflow-y: scroll;">
+    <div class="main-content" style="height: 100vh; width:100vw; overflow-y: scroll;">
   
-  
-  
-     
-      <p class="fw-bold">Most reacted Posts</p>
+      <p class="fw-bold" style="font-size:x-large;" >Most reacted Posts</p>
       <div id="stories-wrapper" style="display:flex;align-items: center;justify-content: flex-start;">
         {% for i in story %}
   
-        <div class="storycard" style="overflow:hidden;display:grid;place-items:center;margin:auto;height:130px;border-radius:8px;background:#897492;color:black;
-         box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
+        <div class="storycard" style="overflow:hidden;display:grid;place-items:center;margin:auto;height:150px;border-radius:8px;background:rgba(0, 0, 0, 0.5);color:black;
+         box-shadow: -4px -4px 10px rgba(0, 0, 0, 0.5),
           inset 4px 4px 10px rgba(0, 0, 0, 0.5),
-          inset -4px -4px 10px rgba(67, 67, 67, 0.3),
-          4px 4px 10px rgba(0, 0, 0, 0.3);border: 1px solid rgb(36, 33, 33);">
+          inset -4px -4px 10px rgba(0, 0, 0, 0.5),
+          4px 4px 10px rgba(0, 0, 0, 0.5);border: 1px solid rgba(0, 0, 0, 0.5);">
           <a href="{% url 'auth:login'  %}"
             style="text-decoration: none;font-size: 0.7rem; display:inline-flex;justify-content: space-between;align-items: center;color:black;">
   
             <img src="{{i.post_profile.profile_pic.url}}"
-              style="height: 25px;width:25px;border:3px solid purple;border-radius: 50%;" />
-            <span style="color:yellow;"> {{i.user}}</span>
+              style="height: 25px;width:25px;border:3px solid #1efc5a;border-radius: 50%;" />
+            <span style="color:#1efc5a;"> {{i.user}}</span>
   
           </a>
           <a href="{% url 'auth:login'  %}"
             style="text-decoration:none;text-align:center;color:black ;display:flex;align-items: space-between;justify-content: space-between;flex-direction: column;height: 70%;">
-            <div class="story-post mb-2 fw-bold" style="font-size: 0.9rem;color:white;"> {{i.post}}</div>
+            <div class="story-post mb-2 fw-bold" style="font-size: 0.9rem;color:white;">{{i.post}}</div>
             <span style='font-size:0.9rem;color:black;'>
-              <i class="fa-solid fa-hands-clapping " style='color:rgb(255, 209, 2);'></i> {{i.likes}}likes
+              <i class="fa-solid fa-hands-clapping " style='color:rgb(255, 209, 2);'></i> <p style="color: white;"> {{i.likes}} likes</p>
             </span>
           </a>
         </div>
@@ -438,9 +434,9 @@ span .st-label{
       <!-- Uploaded Posts Section  -->
       <!-- Post 1  -->
       {% for i in posts reversed %}
-      <div class="post-container" id="{{i.id}}" style=" background:#393846;
+      <div class="post-container" id="{{i.id}}" style=" background:rgba(0,0,0,.5);
      
-     box-shadow: 0 15px 100px #1e1d25;">
+     box-shadow: 0 15px 100px #1efc5911;">
         <div class="post-row">
   
   
@@ -448,11 +444,11 @@ span .st-label{
             <a href="{% url 'auth:login'  %}">
   
               <img src="{{i.post_profile.profile_pic.url}}"
-                style="height: 50px;width:50px;border:3px solid rgb(105, 255, 163);background-color: white;" />
+                style="height: 50px;width:50px;border:3px solid #1efc5a;background-color: white;" />
             </a>
   
             <div>
-              <p class="fw-bold" style="color:rgb(227, 252, 1)">{{i.user.username}}</p>
+              <p class="fw-bold" style="color:#1efc5a">{{i.user.username}}</p>
               <span style="font-size: 14px;color:#8c8aa7;">{{i.upload_date}}</span>
             </div>
           </div>
@@ -502,9 +498,9 @@ span .st-label{
             {% comment %}
             </a> {% endcomment %}
   
-            <span class="fw-bold" id="likecount{{i.id}}" style="color: #45ffbc">{{i.likes.count}}</span>
+            <span class="fw-bold" id="likecount{{i.id}}" style="color: #1efc5a">{{i.likes.count}}</span>
             <a href="{% url 'auth:login'  %}" style="text-decoration:none ;margin-left: 20px;">
-              <div class="comment fw-bold" style="color:  #45ffbc;">
+              <div class="comment fw-bold" style="color:  #1efc5a;">
                 <img
                   src="https://media.istockphoto.com/id/1310060658/vector/thinking-emoticon-question-face-emoji-with-eyeglasses-vector-illustration.jpg?s=612x612&w=0&k=20&c=pNujEuBbCFfBGUPFNznD6gMVAJ_uGeFYMmjpPuby9Eg="
                   style="border-radius: 50%;height: 45px;width: 45px;">
@@ -517,8 +513,7 @@ span .st-label{
         </div>
       </div>
       {% endfor %}
-      You're all caught up...
-  
+      <p style="font-size: large;">You're all caught up...</p>
   
       <!-- Right Sidebar  -->
       <div></div>
