@@ -113,6 +113,61 @@ def addpost(request):
             return JsonResponse({'data':'Something went wrong!!'})
         # return redirect('/')    
         
+    
+    # return render(request,'feed.html',context)    
+
+@login_required(login_url='auth/')
+def edit(request):
+    userdata=userprofile.objects.get(username=request.user)
+   
+    post=post_table.objects.all()
+ 
+    current=request.user
+    currentuser=userprofile.objects.get(username=current)
+    edit_instance=profileform(request.POST or None, request.FILES or None,instance=currentuser)
+
+    context={
+        'posts':post,
+        'userprofile':currentuser,
+        'form':edit_instance,
+         }
+    if edit_instance.is_valid():
+        
+        edit_instance.save()
+        return redirect('/')
+
+
+    return render(request,'profileupdate.html',context)
+
+@login_required(login_url='auth/')
+def search(request):
+    currentuser=userprofile.objects.get(username=request.user)
+    context={
+                'userprofile':currentuser,
+                'data':'',
+         
+                    }
+  
+    if 'query' in request.GET:
+        q=request.GET['query']
+        # uname=User.objects.filter(username__icontains=q)
+
+        res=userprofile.objects.filter(firstname__icontains=q) | userprofile.objects.filter(lastname__icontains=q) 
+   
+        if res is not None:
+            context={
+                'userprofile':currentuser,
+                'data':res,
+                # 'uname':uname
+                    }
+        else:
+            context={
+            'userprofile':currentuser,
+            'data':res,
+                    }  
+        return render(request,'search.html',context)
+                    
+    return render(request,'search.html',context)
 
 
 @login_required(login_url='auth/')
@@ -135,6 +190,81 @@ def like(request,id):
             postinstance.save()
             print('liked')            
             return JsonResponse({'data':'liked'},safe=False)
+
+
+
+    
+@login_required(login_url='auth/')
+def follow(request,user):
+    userdata=userprofile.objects.get(username=user)
+    followerid=User.objects.get(username=userdata.username)
+
+    current=request.user.username
+    currentuserobject=userprofile.objects.get(username=current)
+    
+    if currentuserobject.following.filter(username=followerid).exists():
+     
+        currentuserobject.following.remove(followerid)
+        userdata.followers.remove(request.user)
+        print("unfollow")
+        return JsonResponse("notfollowing",safe=False)
+    else:
+        print("follow")
+        currentuserobject.following.add(followerid)
+        userdata.followers.add(request.user)
+        return JsonResponse("following",safe=False)
+
+  
+@login_required(login_url='auth/')
+def comment(request,id):
+    
+    post=post_table.objects.get(id=id)
+    currentuser=userprofile.objects.get(username=request.user)
+    postcomments=comments.objects.filter(post=post)
+    print(currentuser)
+    context={
+            'comments':postcomments,
+            'userprofile':currentuser,
+            'posts':post,
+    }
+
+    if request.method=='POST':
+            comment=request.POST['comment']
+            commentinstance=comments.objects.create(post=post,user=currentuser,comment=comment)
+            commentinstance.save()
+            date=comments.objects.get(id=commentinstance.id).date
+            profile=currentuser.profile_pic.url
+            data={
+                'date':date,
+                'comment':comment,
+                'profile':profile,
+                'user':currentuser.username,
+                'id':commentinstance.id,
+                'userid':currentuser.id
+                }
+            return JsonResponse(data, safe=False)
+    
+
+    return render(request,'comments.html',context) 
+
+
+@login_required(login_url='auth/')
+def deletecomment(request,id):
+    print(id)
+    commentinstance=comments.objects.get(id=id)
+    currentuser=userprofile.objects.get(username=request.user)
+    postcomments=comments.objects.filter(post=commentinstance.post)
+    post=commentinstance.post
+
+    commentinstance.delete()
+    context={
+            'comments':postcomments,
+            'userprofile':currentuser,
+            'posts':post,
+    }
+    url="/comment/"+str(post.id)+"/"
+    return redirect(url)
+
 
 
 @login_required(login_url='auth/')

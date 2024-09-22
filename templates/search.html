@@ -1,0 +1,319 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'asset/styles.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <title>Search</title>
+
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+    body {
+        margin-top: 20px;
+        background-color: #01240a;
+    }
+
+    .avatar {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        white-space: nowrap;
+        border-radius: 1000px;
+        vertical-align: bottom
+    }
+
+    .avatar i {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 10px;
+        height: 10px;
+        border: 2px solid #fff;
+        border-radius: 100%
+    }
+
+    .avatar img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border: 0 none;
+        border-radius: 1000px
+    }
+
+    .avatar-online i {
+        background-color: #4caf50
+    }
+
+    .avatar-off i {
+        background-color: #616161
+    }
+
+    .avatar-busy i {
+        background-color: #ff9800
+    }
+
+    .avatar-away i {
+        background-color: #f44336
+    }
+
+    .avatar-100 {
+        width: 100px
+    }
+
+    .avatar-100 i {
+        height: 20px;
+        width: 20px
+    }
+
+    .avatar-lg {
+        width: 50px
+    }
+
+    .avatar-lg i {
+        height: 12px;
+        width: 12px
+    }
+
+    .avatar-sm {
+        width: 30px
+    }
+
+    .avatar-sm i {
+        height: 8px;
+        width: 8px
+    }
+
+    .avatar-xs {
+        width: 20px
+    }
+
+    .avatar-xs i {
+        height: 7px;
+        width: 7px
+    }
+
+    .list-group-item {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        margin-bottom: -1px;
+        background-color: #fff;
+        border: 1px solid transparent;
+    }
+
+    .searchTerm {
+        width: 80%;
+        border: none;
+        outline: none;
+        border-radius: 50px;
+        padding-left: 10px;
+        font-size: 17px;
+
+    }
+
+    .searchButton {
+        border: none;
+        outline: none;
+        border-radius: 50%;
+        padding: 5px;
+    }
+
+    .searchButton>i {
+        height: 8px;
+    }
+
+    .nav-right {
+        width: 60%;
+    }
+
+    @media only screen and (max-width:600px) {
+        .nav-right {
+            width: 100%;
+        }
+    }
+.wrap ::placeholder{
+    color:rgb(231, 240, 240);
+}
+
+
+</style>
+
+<body>
+    <nav style="top: 0;position:fixed;width:100%;z-index:200;background-color: rgb(0, 0, 0); box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
+    inset 4px 4px 10px rgba(0, 0, 0, 0.5),
+    inset -4px -4px 10px rgba(67, 67, 67, 0.3),
+    4px 4px 10px rgba(0, 0, 0, 0.3);border: 1px solid rgb(36, 33, 33);">
+        <!-- Left Section  -->
+        <div class="nav-left">
+            <a href="{% url 'home:home' %}" style="text-decoration: none;"><span class="logo"
+                    style="color:#1efc5a; font-family: 'Dancing Script', cursive !important; font-size: 40px; font-weight: bold;letter-spacing: 2px;">Connectify</span></a>
+            {{User.username}}
+        </div>
+        <!-- Right Section  -->
+        <div class="nav-right">
+            <!-- Searchbox  -->
+            <div class="wrap" style="width: 80%;">
+                <form method="get" action="{% url 'home:search' %}" class="search" style="width: 100%;">
+                    {% csrf_token %}
+                    <input type="text" class="searchTerm" placeholder="Search..." name="query" style="height:35px;background-color:grey;color: white">
+                    <button type="submit" class="searchButton"style="background-color:black;width:30px;height:30px;box-shadow:0 0 8px 1px;border:1px solid grey;">
+                        <i class="fa fa-search text-white"></i>
+                    </button>
+                </form>
+            </div>
+
+            <div class="nav-user-icon online" onclick="settingsMenuToggle()" style="margin-left: 10px;">
+                <img src="{{ userprofile.profile_pic.url }}" style="border:3px solid #1efc5a;" />
+            </div>
+
+
+        </div>
+        
+
+        <!-- Settings Menu Section  -->
+        <div class="settings-menu"style="background-color: rgba(255, 255, 255, 0.08);
+        -webkit-backdrop-filter: blur(15px);
+        backdrop-filter: blur(15px);
+     
+        -webkit-box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 20px rgba(219, 214, 214, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.03);" >
+
+            <!-- Dark Button Toggle  -->
+            <div class="settings-menu-inner">
+                <div class="user-profile">
+                    <img src="{{ userprofile.profile_pic.url }}" style="height: 50px;width:50px;border:3px solid #1efc5a;" />
+                    <div>
+                        <p style="color: white;">{{user.username}}</p>
+
+                        <a href="{% url 'home:profile' user.username %}" style="color: yellow;">See your profile</a>
+
+                    </div>
+                </div>
+                <hr />
+
+                <hr />
+
+                <div class="settings-links">
+                    <a href="{% url 'home:edit'  %}" style="color: white;">
+                        <button type="button" class="btn btn-disabled" style="color: white;">
+                            <img src="{% static 'images/setting.png' %}" class="settings-icon" />
+                            Edit Profile
+                        </button>
+                    </a>
+                </div>
+
+
+                <div class="settings-links">
+
+
+                    <button type="submit" class="btn btn-disable" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" style="color: white;">
+                        <img src="{% static 'images/logout.png' %}" class="settings-icon" />
+                        Logout
+                    </button>
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </nav>
+
+    <main class="container mt-5" style="background-color:transparent;">
+
+        <div class="panel-body mt-3 w-100 ">
+            <ul class="list-group list-group-dividered list-group-full">
+                {% if data %}
+                {% for i in data %}
+
+                <li class="list-group-item mb-2" style="background:#393846;
+   
+                box-shadow: 0 15px 100px #1e1d25;">
+
+                    <div class="media  p-1">
+                        <div class="media-left " style="height:55px;width:55px;">
+                            <div class="avatar avatar-online" style="width: 55px;height:55px;">
+                                <a href="{% url 'home:profile' i.username %}">
+
+                                    <img src="{{i.profile_pic.url}}" style="width: 55px;height:55px;border:3px solid #1efc5a;">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="media-body d-flex justify-content-between mx-1">
+                            <div>
+                                <div class="text-primary text-bold">
+                                    <small style="color: white;">{{i.firstname}} {{i.lastname}}</small>
+                                </div>
+                                <small style="color: #1efc5a;">@{{i.username}}</small>
+
+                            </div>
+
+                            <div class="pull-right  ">
+                               
+                                <button type="disabled"
+                                    class="btn btn-outline-secondary btn-sm waves-effect waves-light">{{i.followers.count}}  Followers</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+                </li>
+
+                {% endfor %}
+                {% else %}
+                <p style="color:white; font-size: large;">No user found..</p>
+                {% endif %}
+            </ul>
+        </div>
+        </div>
+    </main>
+    
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="border:none;">
+
+        Are you sure you want to log out?
+      </div>
+      <div class="modal-footer">
+        <form action="{% url 'auth:logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-secondary">Sign out</button>
+        </form>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- JavaScript File  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'asset/script.js' %}"></script>
+
+
+</body>
+
+</html>
