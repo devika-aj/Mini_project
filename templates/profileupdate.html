@@ -1,0 +1,217 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prospect</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+    * {
+        padding: 0;
+        margin: 0;
+        font-family: 'Poppins', sans-serif
+    }
+
+    .container {
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+    }
+
+    .card {
+        margin: 2rem 0;
+        width: 350px;
+        height: fit-content;
+        background-color: #fff;
+        box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        padding:5px  20px;
+    }
+
+    .card .info {
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #e1dede;
+        background-color: #e5e5e5;
+        margin-bottom: 20px;
+    }
+
+    .card .info button,
+    #updatebtn {
+        height: 30px;
+        width: 80px;
+        border: none;
+        color: #fff;
+        border-radius: 4px;
+        background-color: #000;
+        cursor: pointer;
+        text-transform: uppercase
+    }
+
+    .card .forms {
+        padding: 15px
+    }
+
+    .card .inputs {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px
+    }
+
+    .card .inputs span {
+        font-size: 10px;
+        margin: 5px 0;
+    }
+
+    .card .inputs input {
+        height: 40px;
+        padding: 0px 10px;
+        font-size: 17px;
+        box-shadow: none;
+        outline: none;
+        width: 90%;
+        display: grid;
+        place-items: center;
+    }
+
+    .card .inputs input[type="text"][readonly] {
+        border: 2px solid rgba(0, 0, 0, 0)
+    }
+
+    input[type='file'] {
+        display: none;
+    }
+
+    .form-input label {
+        display: block;
+        width: 45%;
+        height: 45px;
+        margin-left: 25%;
+        line-height: 50px;
+        text-align: center;
+        background: #1172c2;
+
+        color: #fff;
+        font-size: 15px;
+        font-family: "Open Sans", sans-serif;
+        text-transform: Uppercase;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .form-input img {
+        width: 100%;
+        display: none;
+
+        margin-bottom: 30px;
+    }
+
+    #updatebtn {
+        display: none;
+    }
+</style>
+
+<body style="    background-color: #01240a;">
+    <div class="container">
+
+
+        <div class="card" style="background:rgba(0,0,0,.75);color:black;
+        box-shadow: inset 0 4px 10px rgba(91, 176, 114, 0.5), 0 15px 100px #1efc5911; 
+        border: 3px solid rgba(91, 176, 114, 0.5);">
+            <div class="info" style='background-color:transparent'> 
+                <span>Edit Profile</span> 
+                <button id="savebutton" style="background-color: #1efc5a;outline: none;border: none;color: #000;">edit</button> 
+            </div>
+
+            <form class="center" enctype="multipart/form-data" method="post" action="{% url 'home:edit' %}" >
+                {% csrf_token %}
+                <div class="preview" style="display: grid;place-items: center; height: fit-content;">
+                    <img id="file-ip-1-preview" style='border-radius:50%;height:100px;width:100px;border:3px solid #1efc5a;box-shadow:0 0 10px 2px rgb(39, 38, 38)'
+                        src="{{form.profile_pic.value.url}}">
+
+                </div>
+                <label for="file-ip-1" style="font-size: 15px;color: #1efc5a;font-weight: bold;text-align: center;">Change Profile picture</label>
+                <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);" name="profile_pic">
+             
+                <div class="inputs">
+                    <span>Firstname</span>
+
+                    <input type="text" readonly value="{{form.firstname.value}}" name="firstname" style='background-color:transparent;border-radius: 10px;'>
+                </div>
+                <div class="inputs">
+                    <span>Lastname</span>
+
+                    <input type="text" readonly value="{{form.lastname.value}}" name="lastname" style='background-color:transparent;border-radius: 10px;'>
+                </div>
+                <div class="inputs">
+                    <span>Email</span>
+
+                    <input type="text" readonly value="{{form.email.value}}" name="email" style='background-color:transparent;border-radius: 10px;'>
+                </div>
+
+                <div class="inputs">
+                    <span>Bio</span>
+                    <input type="text" readonly value="{{form.bio.value}}" name="bio" style='background-color:transparent;border-radius: 10px;'>
+                </div>
+                <button id="updatebtn" style="width: fit-content;background-color: #1efc5a;padding: 3px 5px;margin-bottom: 20px;margin-top: 20px;margin-left: 75px; color:#000;" type="submit">
+                    Update profile</button>
+            </form>
+         
+        </div>
+    </div>
+
+
+    <script>
+        var savebutton = document.getElementById('savebutton');
+        var updatebtn = document.getElementById('updatebtn');
+        var readonly = true;
+        var inputs = document.querySelectorAll('input[type="text"]');
+        savebutton.addEventListener('click', function () {
+
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].toggleAttribute('readonly');
+            };
+
+            if (savebutton.innerHTML == "edit") {
+                savebutton.innerHTML = 'cancel';
+                updatebtn.style.display = 'block';
+
+            } else {
+                savebutton.innerHTML = "edit";
+                updatebtn.style.display = 'none';
+
+            }
+
+        });
+    </script>
+    <!-- profile update form -->
+    <script type="text/javascript">
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                var src = URL.createObjectURL(event.target.files[0]);
+                var preview = document.getElementById("file-ip-1-preview");
+                preview.src = src;
+                preview.style.display = "block";
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
+{% endblock %}
