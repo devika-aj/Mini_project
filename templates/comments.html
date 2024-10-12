@@ -1,0 +1,320 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<style>
+    .img-sm {
+        width: 46px;
+        height: 46px;
+    }
+
+    .panel {
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.075);
+        border-radius: 0;
+        border: 0;
+        margin-bottom: 15px;
+    }
+
+    .panel .panel-footer,
+    .panel>:last-child {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .panel .panel-heading,
+    .panel>:first-child {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .panel-body {
+        padding: 25px 20px;
+    }
+
+
+    .media-block .media-left {
+        display: block;
+        float: left
+    }
+
+    .media-block .media-right {
+        float: right
+    }
+
+    .media-block .media-body {
+        display: block;
+        overflow: hidden;
+        width: auto
+    }
+
+    .middle .media-left,
+    .middle .media-right,
+    .middle .media-body {
+        vertical-align: middle
+    }
+
+    .thumbnail {
+        border-radius: 0;
+        border-color: #e9e9e9
+    }
+
+    .tag.tag-sm,
+    .btn-group-sm>.tag {
+        padding: 5px 10px;
+    }
+
+    .tag:not(.label) {
+        background-color: #fff;
+        padding: 6px 12px;
+        border-radius: 2px;
+        border: 1px solid #cdd6e1;
+        font-size: 12px;
+        line-height: 1.42857;
+        vertical-align: middle;
+        -webkit-transition: all .15s;
+        transition: all .15s;
+    }
+
+    .text-muted,
+    a.text-muted:hover,
+    a.text-muted:focus {
+        color: #acacac;
+    }
+
+    .text-sm {
+        font-size: 0.9em;
+    }
+
+    .text-5x,
+    .text-4x,
+    .text-5x,
+    .text-2x,
+    .text-lg,
+    .text-sm,
+    .text-xs {
+        line-height: 1.25;
+    }
+
+    .btn-trans {
+        background-color: transparent;
+        border-color: transparent;
+        color: #929292;
+    }
+
+    .btn-icon {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+
+    .btn-sm,
+    .btn-group-sm>.btn,
+    .btn-icon.btn-sm {
+        padding: 5px 10px !important;
+    }
+
+    .mar-top {
+        margin-top: 15px;
+    }
+    .post-container{
+        background:#393846;
+   
+            box-shadow: 0 15px 100px #1e1d25;
+    }
+</style>
+
+<div class="container"style="background-color:transparent;">
+
+    <div class="main-content">
+
+
+        <div class="post-container"style=" background:rgba(0,0,0,.75);
+      box-shadow: inset 0 4px 10px rgba(91, 176, 114, 0.5), 0 15px 100px #1efc5911; 
+      border: 3px solid rgba(91, 176, 114, 0.5);">
+            <div class="post-row">
+
+                <div class="user-profile">
+                    <a href="{% url 'home:profile' posts.user %}">
+
+                        <img src="{{posts.post_profile.profile_pic.url}}"
+                            style="height: 50px;width:50px;border:3px solid  #1efc5a ;background-color: white;" />
+                    </a>
+
+                    <div>
+                        <p class="fw-bold" style="color:#1efc5a">{{posts.user}}</p>
+                        <span style="font-size: 14px;color:#8c8aa7;">{{posts.upload_date}}</span>
+                    </div>
+                </div>
+
+            </div>
+            <p class="post-text fw-normal" style="font-weight: bold;letter-spacing:1px;color: rgb(224, 224, 224);">
+                {{posts.caption}}
+            </p>
+            <hr>
+            <div class="post-row" style="place-items: center;">
+
+                <div class="post-img p-1 fw-bolder"
+                    style="width:70% ;margin-left: 8%;min-height:80px;font-size:18px;color:rgb(255, 255, 255);letter-spacing: 1px;">{{posts.post}}</div>
+
+            </div>
+
+            <div class="post-row">
+
+
+            </div>
+            <div class="box" style="background-color:transparent;">
+                <div class="col-md-12 bootstrap snippets">
+                    <div class="panel">
+                        <form class="panel-body" action="{% url 'home:comment' posts.id %}" method="post"
+                            id="commentform">
+                            {% csrf_token %}
+                            <textarea class="form-control" rows="1" placeholder="What are you thinking?" name='comment'
+                                id="comment" style='border:2px solid #1efc5a; background-color: transparent;color: white;' required></textarea>
+                            <div class="mar-top clearfix">
+                                <button class="btn btn-sm btn-primary pull-right" type="submit" style="background: #1efc5a;
+                                border: none; color: #000;">
+                                    <i class="fa fa-pencil fa-fw" style="color: #000;"></i> Post Comment</button>
+
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+        {% if comments %}
+
+        <div class="container p-0" style="background-color: transparent;">
+            comments( <p id='commentcount' style="margin: 0;">{{comments.count}}</p>)
+            <hr>
+        </div>
+
+
+        {% for i in comments reversed %}
+        <div id="commentbox" >
+            <div class="post-container {{i.id}}" id="post-container" style="background-color: rgb(40, 63, 46);" >
+                <div class="post-row">
+                    <div class="user-profile">
+                        <a href="{% url 'home:profile' i.user.username %}">
+
+                            <img src="{{i.user.profile_pic.url}}" style="width:50px ;height:50px;" />
+                        </a>
+
+                        <div>
+                            <p style="color:#1efc5a;">{{i.user.username}}</p>
+                            <span style="font-size: 15px;color: #8c8aa7;">{{i.date}}</span>
+                        </div>
+
+                    </div>
+                    {% if i.user.username == userprofile.username %}
+                    <a href="{% url 'home:deletecomment' i.id %}">
+
+                        <i class="fa fa-trash"></i>
+
+                    </a>
+                    {% else %}
+                    <!-- <div class="like" style="right:0;">
+                        <i class="fa fa-thumbs-up"></i>
+                    </div> -->
+                    {% endif %}
+
+                </div>
+                <p class="post-text" style="font-weight: bold;letter-spacing:1px;color:white;letter-spacing: 1px;">
+                    {{i.comment}}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <div class="container p-0" style="background-color: transparent;">
+            comments( <p id='commentcount' style="margin: 0;">0</p>)
+            <hr>
+        </div>
+        <div id="commentbox">
+
+        </div>
+    </div>
+    {% endif %}
+</div>
+<!-- comment upload progress -->
+<script>
+
+    document.getElementById("commentform").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        comment = document.getElementById("comment").value;
+        postid = '{{posts.id}}';
+
+
+        const formData = new FormData();
+
+        formData.append('comment', comment);
+        formData.append('id', '{{posts.id}}');
+
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        console.log(formData);
+        fetch("{% url 'home:comment' posts.id %}", {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("comment").value = "";
+                var commentcount = document.getElementById("commentcount");
+                commentcount.innerHTML = (commentcount.innerHTML * 1) + 1;
+
+
+
+                // commentcount.innerText? (commentcount.innerText * 1) + 1:'';
+                var commentbox = document.getElementById("commentbox");
+                var date = new Date().toLocaleTimeString();
+                let userid = data['user'];
+
+                commentdiv = `
+                    <div>
+             <div class="post-row">
+                <div class="user-profile">
+                    <a href="/profile/${userid}/">
+
+                        <img src="`+ data['profile'] + `" style="width:50px ;height:50px;" />
+                    </a>
+
+                    <div>
+                        <p style="color:yellow;">`+ data['user'] + `</p>
+                        <span style="font-size: 15px;color: #8c8aa7;">`+ date + `</span>
+                    </div>
+
+                </div>
+         <a href="/deletecomment/`+ data['id'] + `"> 
+                  
+            <i class="fa fa-trash" ></i>
+
+                </a> 
+              
+
+            </div>
+            <p class="post-text" style="font-weight: bold;letter-spacing:1px;">
+                `+ data['comment'] + `
+            </p>
+            </div>`;
+                let card = document.createElement('div');
+                card.classList.add("post-container");
+                card.innerHTML = commentdiv;
+
+                commentbox.insertBefore(card, commentbox.childNodes[0]);
+                console.log('Success:', data);
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+<!-- comment upload progress -->
+
+
+{% endblock %}

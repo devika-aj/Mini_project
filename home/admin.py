@@ -10,4 +10,7 @@ class profileadmin(admin.ModelAdmin):
     list_display=['username','email','firstname','lastname','profile_pic']
 admin.site.register(userprofile,profileadmin)  
 
+class commentadmin(admin.ModelAdmin):
+    list_display=['user','comment','date']
+admin.site.register(comments,commentadmin)
 
