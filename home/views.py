@@ -5,9 +5,64 @@ from .models import post_table,userprofile,comments
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .form import profileform
+from home.models import userprofile
 from django.contrib import messages
+import re
 # Create your views here.
 
+
+
+def register(request):
+    if request.method == 'POST':
+        username = request.POST.get('uname')
+        first_name = request.POST.get('fname')
+        last_name = request.POST.get('lname')
+        email = request.POST.get('email')
+        bio = request.POST.get('bio')
+        password = request.POST.get('pswd')
+        confirm_password = request.POST.get('cpswd')
+
+        # Validation for username: only alphabets and special characters
+        if not re.match(r'^[a-zA-Z@_!#$%^&*()<>?/\|}{~:;,.]*$', username):
+            messages.error(request, "Username can only contain alphabets and special characters.")
+            return render(request, 'auth/register.html')
+
+        # Validation for first name and last name: only alphabets
+        if not first_name.isalpha():
+            messages.error(request, "First name can only contain alphabets.")
+            return render(request, 'auth/register.html')
+
+        if not last_name.isalpha():
+            messages.error(request, "Last name can only contain alphabets.")
+            return render(request, 'auth/register.html')
+
+        # Validation for password: at least 7 characters
+        if len(password) < 7:
+            messages.error(request, "Password must be at least 7 characters long.")
+            return render(request, 'auth/register.html')
+
+        # Check if passwords match
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match.")
+            return render(request, 'auth/register.html')
+
+        # Check if username or email already exists
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already taken.")
+            return render(request, 'auth/register.html')
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email is already registered.")
+            return render(request, 'auth/register.html')
+
+        # Create user and userprofile
+        user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
+        user_profile = userprofile.objects.create(username=username, firstname=first_name, lastname=last_name, email=email, bio=bio)
+
+        messages.success(request, "Your account has been created successfully!")
+        return redirect('auth:login')
+
+    return render(request, 'auth/register.html')
 
 # @login_required(login_url='auth/')
 def home(request):

@@ -87,6 +87,47 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+		document.querySelector('form').addEventListener('submit', function(e) {
+		  const username = document.querySelector('input[name="uname"]').value;
+		  const firstName = document.querySelector('input[name="fname"]').value;
+		  const lastName = document.querySelector('input[name="lname"]').value;
+		  const password = document.querySelector('input[name="pswd"]').value;
+		  const confirmPassword = document.querySelector('input[name="cpswd"]').value;
+	  
+		  // Username validation: only letters and special characters
+		  const usernamePattern = /^[a-zA-Z@_!#$%^&*()<>?/\|}{~:;,.]*$/;
+		  if (!usernamePattern.test(username)) {
+			alert('Username can only contain alphabets and special characters.');
+			e.preventDefault();
+		  }
+	  
+		  // First name and Last name validation: only alphabets
+		  if (!/^[a-zA-Z]*$/.test(firstName)) {
+			alert('First name can only contain alphabets.');
+			e.preventDefault();
+		  }
+		  if (!/^[a-zA-Z]*$/.test(lastName)) {
+			alert('Last name can only contain alphabets.');
+			e.preventDefault();
+		  }
+	  
+		  // Password length validation
+		  if (password.length < 7) {
+			alert('Password must be at least 7 characters long.');
+			e.preventDefault();
+		  }
+	  
+		  // Password match validation
+		  if (password !== confirmPassword) {
+			alert('Passwords do not match.');
+			e.preventDefault();
+		  }
+		});
+	  </script>
+	  
+
 </body>
 
 </html>
